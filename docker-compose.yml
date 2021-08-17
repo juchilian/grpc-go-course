@@ -1,0 +1,9 @@
+version: "3"
+services:
+  go-test:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile_go
+    volumes:
+      - .:/go/src/grpc-project
+    tty: true

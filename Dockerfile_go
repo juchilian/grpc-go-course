@@ -1,0 +1,14 @@
+FROM golang:1.16.2-alpine
+
+RUN apk add --no-cache git bash make curl gcc libc-dev openssl
+RUN go get -u github.com/kyoh86/richgo
+RUN go get -u golang.org/x/tools/cmd/goimports
+RUN go get -u google.golang.org/grpc
+RUN go get -u github.com/golang/protobuf/protoc-gen-go
+# RUN go get -u github.com/golang/mock/mockgen@v1.6.0
+# RUN go get -u github.com/gobuffalo/packr/v2/...
+
+WORKDIR /go/src/grpc-project
+COPY . /go/src/grpc-project
+
+RUN go mod download
