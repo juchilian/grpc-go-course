@@ -1,9 +1,18 @@
 version: "3"
 services:
-  go-test:
+  go-server:
     build:
       context: ./
       dockerfile: ./Dockerfile_go
     volumes:
       - .:/go/src/grpc-project
+    depends_on:
+      - redis
     tty: true
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    restart: always
+    volumes:
+      - ./docker/database:/data

@@ -6,6 +6,7 @@ option go_package = 'calculator/calculatorpb';
 message Calculator {
   int64 n1 = 1;
   int64 n2 = 2;
+  int64 n3 = 3;
 }
 
 message CalculatorRequest { Calculator calculator = 1; }
