@@ -1,0 +1,9 @@
+FROM golang:1.16-alpine
+
+RUN apk add --no-cache git bash make curl gcc libc-dev openssl
+RUN go get -v github.com/rubenv/sql-migrate/...
+RUN go get -u gorm.io/datatypes
+RUN go get -u -v github.com/mmmcorp/xo
+
+WORKDIR /go/src/tohmatsu-securities-management
+COPY . /go/src/tohmatsu-securities-management

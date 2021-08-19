@@ -16,3 +16,29 @@ services:
     restart: always
     volumes:
       - ./docker/database:/data
+
+  mysql:
+    build: ./mysql/
+    platform: linux/amd64
+    volumes:
+      # 永続化するときにマウントするdir
+      - ./mysql/data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=golang
+    env_file:
+      - .env.mysql
+    ports:
+      - "3306:3306"
+  migrate:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile_migrate
+    volumes:
+      - .:/go/src/tohmatsu-securities-management/:cached
+    security_opt:
+      - seccomp:unconfined
+    depends_on:
+      - mysql
+    env_file:
+      - .env.mysql
+      - .env.tmp
